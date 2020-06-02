@@ -5,11 +5,19 @@
 
 namespace editmemory
 {
-	void PatchEx(BYTE* dst, BYTE* src, unsigned int size, HANDLE hProcess);
+	void PatchMem(BYTE* dst, BYTE* src, unsigned int size, HANDLE hProcess);
+	template <typename Type>
+	Type ReadMem(HANDLE handle, BYTE* addr)
+	{
+		Type cRead;
+		ReadProcessMemory(handle, addr, &cRead, sizeof(cRead), nullptr);
+		return cRead;
+	}
+	void WriteMem(HANDLE handle, BYTE* addr, BYTE* data);
 }
 
 DWORD GetProcId(const wchar_t* procName);
 
 uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName);
 
-uintptr_t FindDMAAddy(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> offsets);
+uintptr_t FindDynamicAddr(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> offsets);

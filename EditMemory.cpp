@@ -52,7 +52,7 @@ uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName)
 	return modBaseAddr;
 }
 
-uintptr_t FindDMAAddy(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> offsets)
+uintptr_t FindDynamicAddr(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> offsets)
 {
 	uintptr_t addr = ptr;
 	for (unsigned int i = 0; i < offsets.size(); i++)
@@ -63,10 +63,15 @@ uintptr_t FindDMAAddy(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int> off
 	return addr;
 }
 
-void editmemory::PatchEx(BYTE* lpAddress, BYTE* src, unsigned int size, HANDLE hProcess)
+void editmemory::PatchMem(BYTE* lpAddress, BYTE* src, unsigned int size, HANDLE hProcess)
 {
 	DWORD oldProtection;
 	VirtualProtectEx(hProcess, lpAddress, size, PROCESS_VM_READ | PROCESS_VM_WRITE, &oldProtection);
 	WriteProcessMemory(hProcess, lpAddress, src, size, 0);
 	VirtualProtectEx(hProcess, lpAddress, size, oldProtection, &oldProtection);
+}
+
+void editmemory::WriteMem(HANDLE handle, BYTE* addr, BYTE* Value)
+{
+	WriteProcessMemory(handle, addr, &Value, sizeof(Value), nullptr);
 }
