@@ -3,7 +3,7 @@ Edit Memory is a c++ module for helping beginners to start game hacking.
 
 ## How it work ?
 This module have several functions for helping beginners to see how memory works in games.
-We have many example on games such like AssaultCube,CSGO,GTA-SANANDREAS,etc...
+We have many example on games such like AssaultCube,CSGO,GTA: SAN-ANDREAS,etc...
 With this module you can create simple game hack software and understand how memory/pointer/address works in game with less effort.
 
 ## What can i do with this ?
