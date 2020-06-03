@@ -83,4 +83,4 @@ See ? not much harder...
 So now you have no excuse for not started game hacking !
 
 ## Credits
-[GuidedHacking](https://guidedhacking.com/) for explaining so well game hacking  :blush:
+[GuidedHacking](https://guidedhacking.com/) to explain so well game hacking  :blush:
