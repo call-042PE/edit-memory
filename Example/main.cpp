@@ -1,24 +1,32 @@
-#include "EditMemory.h"
-#include <vector>
 #include <iostream>
+#include "EditMemory.h"
 
 int main()
 {
-	int ammo = 0;
-	int newAmmo = 1337;
-	DWORD procID = GetProcId(L"ac_client.exe");
-	HANDLE handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procID);
+	DWORD procId = GetProcId(L"ac_client.exe");
+	//getting procId.
+	
+	DWORD moduleBase = GetModuleBaseAddress(procId, L"ac_client.exe");
+	//getting ModuleBase.
+
+	HANDLE handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procId);
 	//Opens an existing local process object. https://docs.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-openprocess
-	uintptr_t moduleBase = GetModuleBaseAddress(procID, L"ac_client.exe");
-	uintptr_t localPlayer = moduleBase + 0x10F4F4;
+
+	DWORD localPlayer = moduleBase + 0x10F4F4;
+	
 	std::vector<unsigned int> ammoOffsets = { 0x150 };
-	uintptr_t ammoaddr = FindDynamicAddr(handle, localPlayer, ammoOffsets);
-	while (TRUE)
+
+	uintptr_t ammoAddr = FindDynamicAddr(handle, localPlayer, ammoOffsets);
+	//finding dynamic address for reading/writing/patching it.
+
+	editmemory::WriteMem(handle, (BYTE*)ammoAddr, (BYTE*)1337);
+	//writing to the ammoAddr 1337 value.
+
+	while (true)
 	{
-		//ReadProcessMemory(handle, (BYTE*)ammoaddr, &ammo, sizeof(ammo), nullptr);
-		//WriteProcessMemory(handle, (BYTE*)ammoaddr, &newammo, sizeof(ammoaddr), nullptr);
-		ammo = editmemory::ReadMem<int>(handle, (BYTE*)ammoaddr);
-		std::cout << ammo << std::endl;
-		editmemory::WriteMem(handle, (BYTE*)ammoaddr, (BYTE*)newAmmo);
+		int currentAmmo = editmemory::ReadMem<int>(handle, (BYTE*)ammoAddr);
+		//reading value in ammoAddr and stock it in currentAmmo integer.
+		std::cout << currentAmmo << std::endl;
+		//output currentAmmo integer value.
 	}
 }
