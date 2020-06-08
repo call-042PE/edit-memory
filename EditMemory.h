@@ -7,7 +7,7 @@ namespace editmemory
 {
 	void PatchMem(BYTE* dst, BYTE* src, unsigned int size, HANDLE hProcess);
 	template <typename Type>
-	Type ReadMem(HANDLE handle, BYTE* addr)
+	Type ReadMem(HANDLE handle, LPVOID addr)
 	{
 		Type cRead;
 		ReadProcessMemory(handle, addr, &cRead, sizeof(cRead), nullptr);
