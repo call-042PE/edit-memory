@@ -38,7 +38,7 @@ int main()
 
 	while (true)
 	{
-		int currentAmmo = editmemory::ReadMem<int>(handle, (BYTE*)ammoAddr);
+		int currentAmmo = editmemory::ReadMem<int>(handle, (LPVOID)ammoAddr);
 		std::cout << currentAmmo << std::endl;
 	}
 }
@@ -71,8 +71,8 @@ int main()
 
 	while (true)
 	{
-		int currentAmmo = editmemory::ReadMem<int>(handle, (BYTE*)ammoAddr);
-		editmemory::WriteMem(handle, (BYTE*)ammoAddr, (BYTE*)1337);
+		int currentAmmo = editmemory::ReadMem<int>(handle, (LPVOID)ammoAddr);
+		editmemory::WriteMem<int>(handle, (LPVOID)ammoAddr, 1337);
 		std::cout << currentAmmo << std::endl;
 	}
 }
