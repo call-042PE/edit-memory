@@ -13,7 +13,11 @@ namespace editmemory
 		ReadProcessMemory(handle, addr, &cRead, sizeof(cRead), nullptr);
 		return cRead;
 	}
-	void WriteMem(HANDLE handle, BYTE* addr, BYTE* data);
+	template <typename Type>
+	void WriteMem(HANDLE handle, LPVOID addr, Type data)
+	{
+		WriteProcessMemory(handle, addr, &data, sizeof(data), 0);
+	}
 }
 
 DWORD GetProcId(const wchar_t* procName);
