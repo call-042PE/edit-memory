@@ -76,8 +76,3 @@ void editmemory::PatchMem(BYTE* lpAddress, BYTE* src, unsigned int sizeofinstruc
 	WriteProcessMemory(hProcess, lpAddress, src, sizeofinstruction, 0);
 	VirtualProtectEx(hProcess, lpAddress, sizeofinstruction, oldProtection, &oldProtection);
 }
-
-void editmemory::WriteMem(HANDLE handle, BYTE* addr, BYTE* Value)
-{
-	WriteProcessMemory(handle, addr, &Value, sizeof(Value), nullptr);
-}
