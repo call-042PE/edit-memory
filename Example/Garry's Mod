@@ -4,6 +4,8 @@
 #include <string>
 #include <thread>
 
+//A simple tp hack for Garry's mod.
+
 void tp(HANDLE handle, uintptr_t tpX, uintptr_t tpY, uintptr_t tpZ)
 {
     float x = 0;
