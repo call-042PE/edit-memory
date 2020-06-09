@@ -1,6 +1,8 @@
 #include <iostream>
 #include "EditMemory.h"
 
+//simple triggerbot made with love and editmemory :p
+
 int main()
 {
 	DWORD procId = GetProcId(L"csgo.exe");
