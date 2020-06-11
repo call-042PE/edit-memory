@@ -23,11 +23,11 @@ void tp(HANDLE handle, uintptr_t tpX, uintptr_t tpY, uintptr_t tpZ)
         system("PAUSE");
     }
 
-    int Xactuel = editmemory::ReadMem<float>(handle, (BYTE*)tpX);
+    int currentX = editmemory::ReadMem<float>(handle, (BYTE*)tpX);
 
-    int Yactuel = editmemory::ReadMem<float>(handle, (BYTE*)tpY);
+    int currentY = editmemory::ReadMem<float>(handle, (BYTE*)tpY);
 
-    int Zactuel = editmemory::ReadMem<float>(handle, (BYTE*)tpZ);
+    int currentZ = editmemory::ReadMem<float>(handle, (BYTE*)tpZ);
 
     editmemory::WriteMem<float>(handle, (LPVOID)tpX, x);
 
@@ -35,9 +35,9 @@ void tp(HANDLE handle, uintptr_t tpX, uintptr_t tpY, uintptr_t tpZ)
 
     editmemory::WriteMem<float>(handle, (LPVOID)tpZ, z);
 
-    std::cout << Xactuel << std::endl;
-    std::cout << Yactuel << std::endl;
-    std::cout << Zactuel << std::endl;
+    std::cout << currentX << std::endl;
+    std::cout << currentY << std::endl;
+    std::cout << currentZ << std::endl;
 
 
 }
