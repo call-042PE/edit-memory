@@ -24,7 +24,7 @@ DWORD GetProcId(const wchar_t* procName)
 			} while (Process32Next(hSnap, &procEntry));
 		}
 	}
-	//close handle a return the procId of the process
+	//close handle and return the procId of the process
 	CloseHandle(hSnap);
 	return procId;
 }
@@ -52,7 +52,7 @@ uintptr_t GetModuleBaseAddress(DWORD procId, const wchar_t* modName)
 			} while (Module32Next(hSnap, &modEntry));
 		}
 	}
-	//close handle a return moduleBaseAddress
+	//close handle and return moduleBaseAddress
 	CloseHandle(hSnap);
 	return modBaseAddr;
 }
@@ -70,9 +70,13 @@ uintptr_t FindDynamicAddr(HANDLE hProc, uintptr_t ptr, std::vector<unsigned int>
 }
 
 void editmemory::PatchMem(BYTE* lpAddress, BYTE* src, unsigned int sizeofinstruction, HANDLE hProcess)
-{
+{	
+	//variable for stock the old protection
 	DWORD oldProtection;
+	//change the memory protection
 	VirtualProtectEx(hProcess, lpAddress, sizeofinstruction, PROCESS_VM_READ | PROCESS_VM_WRITE, &oldProtection);
+	//write instruction
 	WriteProcessMemory(hProcess, lpAddress, src, sizeofinstruction, 0);
+	//set the old protection
 	VirtualProtectEx(hProcess, lpAddress, sizeofinstruction, oldProtection, &oldProtection);
 }
