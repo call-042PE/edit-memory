@@ -2,6 +2,7 @@
 #include "EditMemory.h"
 
 //simple triggerbot made with love and editmemory :p
+//s/o to hazedumper https://github.com/frk1/hazedumper
 
 int main()
 {
@@ -19,13 +20,14 @@ int main()
 
 	while (true)
 	{
-		int currentAmmo = editmemory::ReadMem<int>(handle, (LPVOID)crosshairId);
-		if (currentAmmo > 0 && currentAmmo < 64)
+		int currentCID = editmemory::ReadMem<int>(handle, (LPVOID)crosshairId);
+		if (currentCID > 0 && currentCID < 64)
 		{
-			editmemory::WriteMem<int>(handle, LPVOID(moduleBase + 0x317C6EC), 5);
+			editmemory::WriteMem<int>(handle, LPVOID(moduleBase + 0x317C6EC), 5); // force player to shoot
 			Sleep(20);
 			editmemory::WriteMem<int>(handle, LPVOID(moduleBase + 0x317C6EC), 4);
 			Sleep(10);
 		}
+		Sleep(1);
 	}
 }
